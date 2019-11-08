@@ -34,6 +34,16 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(userService.login(returningUser, request, session)));
     }
 
+    @PostMapping("/add/{rid}")
+    public User addRecipe(@PathVariable String rid ){
+        return userService.addRecipe(rid);
+    }
+
+    @PostMapping("/remove/{rid}")
+    public User removeRecipe(@PathVariable String rid ){
+        return userService.removeRecipe(rid);
+    }
+
     @GetMapping("/list-all-users")
     public List<User> listUsers(){
         return userService.listUsers();

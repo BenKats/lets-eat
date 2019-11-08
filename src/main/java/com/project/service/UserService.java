@@ -17,4 +17,7 @@ public interface UserService  extends UserDetailsService {
 
     public List<User> listUsers();
 
+    User addRecipe(String rid);
+
+    User removeRecipe(String rid);
 }

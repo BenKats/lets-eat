@@ -87,5 +87,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public User addRecipe(String rid) {
+        User tempUser = userRepository.findByUsername("test1");
+        tempUser.addRecipeToUser(rid);
+        return userRepository.save(tempUser);
+    }
+
+    @Override
+    public User removeRecipe(String rid) {
+        User tempUser = userRepository.findByUsername("test1");
+        tempUser.removeRecipeFromUser(rid);
+        return userRepository.save(tempUser);
+    }
+
 }
 
