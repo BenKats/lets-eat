@@ -20,4 +20,6 @@ public interface UserService  extends UserDetailsService {
     User addRecipe(String rid);
 
     User removeRecipe(String rid);
+
+    List<String> getRecipes();
 }

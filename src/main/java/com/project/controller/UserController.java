@@ -49,4 +49,7 @@ public class UserController {
         return userService.listUsers();
     }
 
+    @GetMapping("/recipes")
+    public List<String> getRecipes(){return userService.getRecipes();}
+
 }

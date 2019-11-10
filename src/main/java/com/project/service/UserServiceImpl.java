@@ -108,5 +108,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public List<String> getRecipes() {
+        Authentication auth = authenticationImpl.getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        //user.getRecipe is a call to the getter inside the User Entity
+        return user.getRecipes();
+    }
+
 }
 
