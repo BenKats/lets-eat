@@ -1,11 +1,13 @@
 package com.project.service;
 
+import com.project.config.AuthenticationImpl;
 import com.project.config.JwtUtil;
 import com.project.model.User;
 import com.project.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("encoder")
     PasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    AuthenticationImpl authenticationImpl;
 
 
     @Override
@@ -89,9 +94,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addRecipe(String rid) {
-        User tempUser = userRepository.findByUsername("test1");
-        tempUser.addRecipeToUser(rid);
-        return userRepository.save(tempUser);
+        Authentication auth = authenticationImpl.getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        user.addRecipeToUser(rid);
+        return userRepository.save(user);
     }
 
     @Override
