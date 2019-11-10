@@ -22,4 +22,6 @@ public interface UserService  extends UserDetailsService {
     User removeRecipe(String rid);
 
     List<String> getRecipes();
+
+    User getUser();
 }

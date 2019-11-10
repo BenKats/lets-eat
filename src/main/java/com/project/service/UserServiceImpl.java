@@ -116,5 +116,11 @@ public class UserServiceImpl implements UserService {
         return user.getRecipes();
     }
 
+    @Override
+    public User getUser() {
+        Authentication auth = authenticationImpl.getAuthentication();
+        return userRepository.findByUsername(auth.getName());
+    }
+
 }
 

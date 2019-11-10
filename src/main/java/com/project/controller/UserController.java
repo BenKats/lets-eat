@@ -52,4 +52,7 @@ public class UserController {
     @GetMapping("/recipes")
     public List<String> getRecipes(){return userService.getRecipes();}
 
+    @GetMapping("/user")
+    public ResponseEntity<User> getUser(){return ResponseEntity.ok(userService.getUser());}
+
 }
