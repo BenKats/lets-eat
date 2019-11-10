@@ -39,9 +39,9 @@ public class UserController {
         return ResponseEntity.ok(userService.addRecipe(rid));
     }
 
-    @PostMapping("/remove/{rid}")
-    public User removeRecipe(@PathVariable String rid ){
-        return userService.removeRecipe(rid);
+    @DeleteMapping("/remove/{rid}")
+    public ResponseEntity<User> removeRecipe(@PathVariable String rid ){
+        return ResponseEntity.ok(userService.removeRecipe(rid));
     }
 
     @GetMapping("/list-all-users")
