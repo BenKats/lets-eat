@@ -102,9 +102,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User removeRecipe(String rid) {
-        User tempUser = userRepository.findByUsername("test1");
-        tempUser.removeRecipeFromUser(rid);
-        return userRepository.save(tempUser);
+        Authentication auth = authenticationImpl.getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        user.removeRecipeFromUser(rid);
+        return userRepository.save(user);
     }
 
 }
