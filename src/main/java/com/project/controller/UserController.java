@@ -34,9 +34,9 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(userService.login(returningUser, request, session)));
     }
 
-    @PostMapping("/add/{rid}")
-    public User addRecipe(@PathVariable String rid ){
-        return userService.addRecipe(rid);
+    @PutMapping("/add/{rid}")
+    public ResponseEntity<User> addRecipe(@PathVariable String rid ){
+        return ResponseEntity.ok(userService.addRecipe(rid));
     }
 
     @PostMapping("/remove/{rid}")
