@@ -8,7 +8,9 @@ const SuggestionItem = props => {
         return ingredient.name.includes(props.text) &&
           props.text.length > 0 &&
           props.text !== " " ? (
-          <div>{ingredient.name}</div>
+          <div onClick={() => props.addCardHandler(ingredient)}>
+            {ingredient.name}
+          </div>
         ) : null;
       })}
     </div>

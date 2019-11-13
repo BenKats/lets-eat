@@ -11,11 +11,17 @@ class AutocompleteContainer extends Component {
     selectedIngredients: []
   };
 
-  addCardHandler = e => {
-    console.log("Called addCardHandler", e);
+  addCardHandler = ingredient => {
+    console.log("Called addCardHandler", ingredient);
     // console.log(this.state.text);
     const newIngredient = [...this.state.selectedIngredients];
-    newIngredient.push(this.state.text);
+    //This if else is temporary, should call a function that returns the exact JSON object
+    if (ingredient.id == undefined) {
+      newIngredient.push(ingredient);
+    } else {
+      newIngredient.push(ingredient.name);
+    }
+
     this.setState({ selectedIngredients: newIngredient });
   };
 
@@ -57,6 +63,7 @@ class AutocompleteContainer extends Component {
         <SuggestionItem
           text={this.state.text}
           ingredients={this.state.ingredients}
+          addCardHandler={this.addCardHandler}
         />
       </div>
     );
