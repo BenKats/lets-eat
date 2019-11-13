@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import allIngredients from "../assets/ingredients.json";
 import AutocompleteInput from "./AutocompleteInput";
 import Card from "./Card";
+import SuggestionItem from "./SuggestionItem";
 
 class AutocompleteContainer extends Component {
   state = {
@@ -53,6 +54,10 @@ class AutocompleteContainer extends Component {
           changeHandler={this.changeHandler}
         />
         <p>{this.state.text}</p>
+        <SuggestionItem
+          text={this.state.text}
+          ingredients={this.state.ingredients}
+        />
       </div>
     );
   }
