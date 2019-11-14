@@ -6,7 +6,7 @@ const SuggestionItem = props => {
     <div>
       {props.ingredients.map(ingredient => {
         return ingredient.name.includes(props.text) &&
-          props.text.length > 0 &&
+          props.text.length >= 3 &&
           props.text !== " " ? (
           <div onClick={() => props.addCardHandler(ingredient)}>
             {ingredient.name}

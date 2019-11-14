@@ -3,6 +3,7 @@ import allIngredients from "../assets/ingredients.json";
 import AutocompleteInput from "./AutocompleteInput";
 import Card from "./Card";
 import SuggestionItem from "./SuggestionItem";
+import ingredient from "../Ingredient.js";
 
 class AutocompleteContainer extends Component {
   state = {
@@ -11,15 +12,34 @@ class AutocompleteContainer extends Component {
     selectedIngredients: []
   };
 
+  validateIngredient = ingredientName => {
+    // const checkName = ingredientName.toLowerCase();
+    // const checkNameRes = this.state.ingredients.filter(ingredient => {
+    //   return ingredient.name == checkName;
+    // });
+    // console.log(checkNameRes);
+    this.state.ingredients.forEach(ingredient => {
+      if (ingredient.name === ingredientName) {
+        return ingredient;
+      }
+      return null;
+    });
+  };
+
   addCardHandler = ingredient => {
     console.log("Called addCardHandler", ingredient);
     // console.log(this.state.text);
     const newIngredient = [...this.state.selectedIngredients];
-    //This if else is temporary, should call a function that returns the exact JSON object
-    if (ingredient.id == undefined) {
-      newIngredient.push(ingredient);
+
+    if (ingredient.id === undefined) {
+      const validated = this.validateIngredient(ingredient);
+      if (validated === undefined) {
+        alert(
+          "Ingredient Not Found:\nThats a unique ingredient you got there\n Please check that spelling was correct."
+        );
+      }
     } else {
-      newIngredient.push(ingredient.name);
+      newIngredient.push(ingredient);
     }
 
     this.setState({ selectedIngredients: newIngredient });
@@ -48,7 +68,7 @@ class AutocompleteContainer extends Component {
           return (
             <Card
               deleteCardHandler={() => this.deleteCardHandler(index)}
-              name={ingredient}
+              name={ingredient.name}
               key={index}
             />
           );
