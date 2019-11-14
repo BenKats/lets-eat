@@ -7,12 +7,22 @@ import tempRecipes from "./assets/tempGetRecipes.json";
 class App extends Component {
   state = {
     selectedIngredients: [],
-    recipes: tempRecipes
+    recipes: tempRecipes,
+    //consider making saved recipes a n array of objects {name: pie, id: 777}
+    savedRecipes: []
   };
 
   submitHandler = ingredients => {
     console.log("submitHandler Called", ingredients);
     this.setState({ selectedIngredients: ingredients });
+  };
+
+  //This function needs to make a call to the database to save the id to the user
+  saveHandler = recipeId => {
+    console.log("saveHandler Called", recipeId);
+    const newRecipe = [...this.state.savedRecipes];
+    newRecipe.push(recipeId);
+    this.setState({ savedRecipes: newRecipe });
   };
 
   fetchRecipes = () => {
@@ -38,7 +48,7 @@ class App extends Component {
         <p onClick={this.fetchRecipes}>Select Your Ingredients</p>
 
         <AutocompleteContainer submitHandler={this.submitHandler} />
-        <Card recipes={this.state.recipes} />
+        <Card recipes={this.state.recipes} saveHandler={this.saveHandler} />
       </div>
     );
   }

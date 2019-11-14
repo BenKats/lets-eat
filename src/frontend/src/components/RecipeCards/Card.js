@@ -19,17 +19,17 @@ const Card = props => {
             </p>
             <ul>
               {recipe.usedIngredients.map((ingredient, index) => {
-                return <li>{ingredient.name}</li>;
+                return <li key={index}>{ingredient.name}</li>;
               })}
             </ul>
             <p>
               Ingredients to Buy <span>{recipe.missedIngredientCount}</span>
             </p>
             {recipe.missedIngredients.map((ingredient, index) => {
-              return <li>{ingredient.name}</li>;
+              return <li key={index}>{ingredient.name}</li>;
             })}
             <button>Info</button>
-            <button>Save</button>
+            <button onClick={() => props.saveHandler(recipe.id)}>Save</button>
           </div>
         );
       })}

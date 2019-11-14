@@ -2,7 +2,6 @@ import React from "react";
 
 const SuggestionItem = props => {
   return (
-    //Force break for linter
     <div>
       {props.ingredients.map(ingredient => {
         return ingredient.name.includes(props.text) &&
