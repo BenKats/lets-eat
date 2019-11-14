@@ -58,7 +58,7 @@ class AutocompleteContainer extends Component {
 
   changeHandler = event => {
     console.log(event.target.value);
-    this.setState({ text: event.target.value });
+    this.setState({ text: event.target.value.toLowerCase() });
   };
 
   render() {
