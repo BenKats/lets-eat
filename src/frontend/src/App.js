@@ -4,15 +4,12 @@ import "./App.css";
 import AutocompleteContainer from "./components/AutocompleteContainer";
 class App extends Component {
   state = {
-    ingredients: [
-      {
-        name: "first"
-      },
-      {
-        name: "second"
-      }
-    ],
-    value: ""
+    selectedIngredients: []
+  };
+
+  submitHandler = ingredients => {
+    console.log("submitHandler Called", ingredients);
+    this.setState({ selectedIngredients: ingredients });
   };
 
   render() {
@@ -21,7 +18,7 @@ class App extends Component {
         <h1>Hello, Let's Eat!</h1>
         <p>Select Your Ingredients</p>
 
-        <AutocompleteContainer />
+        <AutocompleteContainer submitHandler={this.submitHandler} />
       </div>
     );
   }

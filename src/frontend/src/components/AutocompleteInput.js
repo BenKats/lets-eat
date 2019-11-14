@@ -5,7 +5,6 @@ const AutocompleteInput = props => {
     <div>
       <input type="text" onChange={props.changeHandler} />
       <button onClick={() => props.addCardHandler(props.text)}>Add</button>
-      <button>Submit</button>
     </div>
   );
 };

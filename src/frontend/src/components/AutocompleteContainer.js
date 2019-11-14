@@ -52,9 +52,9 @@ class AutocompleteContainer extends Component {
   deleteCardHandler = index => {
     console.log(`deleteCardHandler called on index ${index}`);
     const ingredients = [...this.state.selectedIngredients];
-    // console.log(`ingredients preslice is ${ingredients}`);
+    // console.log(`ingredients presplice is ${ingredients}`);
     ingredients.splice(index, 1);
-    console.log(`ingredients postslice is ${ingredients}`);
+    console.log(`ingredients postsplice is ${ingredients}`);
     this.setState({
       selectedIngredients: ingredients
     });
@@ -64,6 +64,13 @@ class AutocompleteContainer extends Component {
     console.log(event.target.value);
     this.setState({ text: event.target.value.toLowerCase() });
   };
+
+  //   submitHandlerHelper = e => {
+  //       //if I want to refactor without an anon function, to potentially make the code look cleaner
+  //     e.preventDefault();
+  //     console.log(this.state.selectedIngredients);
+  //     this.props.submitHandler(this.state.selectedIngredients);
+  //   };
 
   render() {
     return (
@@ -78,11 +85,17 @@ class AutocompleteContainer extends Component {
           );
         })}
         <AutocompleteInput
-          ingredients={this.state.ingredients}
           text={this.state.text}
           addCardHandler={this.addCardHandler}
           changeHandler={this.changeHandler}
         />
+        <button
+          onClick={() =>
+            this.props.submitHandler(this.state.selectedIngredients)
+          }
+        >
+          Submit
+        </button>
         <p>{this.state.text}</p>
         <SuggestionItem
           text={this.state.text}
