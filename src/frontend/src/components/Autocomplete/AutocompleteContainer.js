@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import allIngredients from "../assets/ingredients.json";
+import allIngredients from "../../assets/ingredients.json";
 import AutocompleteInput from "./AutocompleteInput";
 import Card from "./Card";
 import SuggestionItem from "./SuggestionItem";
