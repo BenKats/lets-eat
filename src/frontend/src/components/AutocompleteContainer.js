@@ -3,7 +3,6 @@ import allIngredients from "../assets/ingredients.json";
 import AutocompleteInput from "./AutocompleteInput";
 import Card from "./Card";
 import SuggestionItem from "./SuggestionItem";
-import ingredient from "../Ingredient.js";
 
 class AutocompleteContainer extends Component {
   state = {
@@ -12,32 +11,37 @@ class AutocompleteContainer extends Component {
     selectedIngredients: []
   };
 
+  //This function is called if we are validating an ingredient which was not a Suggestion. If the ingredient exists in our list we return the object otherwise we return -1 as a flag.
   validateIngredient = ingredientName => {
-    // const checkName = ingredientName.toLowerCase();
-    // const checkNameRes = this.state.ingredients.filter(ingredient => {
-    //   return ingredient.name == checkName;
-    // });
-    // console.log(checkNameRes);
+    console.log("Called Validate Ingredient");
+    let match = -1;
     this.state.ingredients.forEach(ingredient => {
       if (ingredient.name === ingredientName) {
-        return ingredient;
+        console.log("ITS A MATCH", ingredient);
+        return (match = ingredient);
       }
-      return null;
     });
+    console.log(match);
+    return match;
   };
 
   addCardHandler = ingredient => {
+    //This handler either receives an ingredient object from SuggestionItem or user inputted text from AutocompleteInput. We have to validate the user inputted text so we check if it has an id property, if not then we call validateIngredient to see if the ingredient exists in our JSON.
     console.log("Called addCardHandler", ingredient);
     // console.log(this.state.text);
     const newIngredient = [...this.state.selectedIngredients];
 
+    //User Input via add button, not selected from Suggestion
     if (ingredient.id === undefined) {
       const validated = this.validateIngredient(ingredient);
-      if (validated === undefined) {
+      if (validated === -1) {
         alert(
           "Ingredient Not Found:\nThats a unique ingredient you got there\n Please check that spelling was correct."
         );
+      } else {
+        newIngredient.push(validated);
       }
+      //Ingredient was selected from Suggestion
     } else {
       newIngredient.push(ingredient);
     }
