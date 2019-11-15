@@ -11,7 +11,7 @@ const Card = props => {
     <div>
       {props.recipes.map((recipe, index) => {
         return (
-          <div style={cardStyle}>
+          <div style={cardStyle} key={index}>
             <h2>{recipe.title}</h2>
             <img src={recipe.image} alt="Recipe Picture" />;
             <p>

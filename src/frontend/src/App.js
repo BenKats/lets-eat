@@ -7,7 +7,7 @@ import tempRecipes from "./assets/tempGetRecipes.json";
 class App extends Component {
   state = {
     selectedIngredients: [],
-    recipes: tempRecipes,
+    recipes: [],
     //consider making saved recipes a n array of objects {name: pie, id: 777}
     savedRecipes: []
   };
@@ -22,13 +22,23 @@ class App extends Component {
     console.log("saveHandler Called", recipeId);
     const newRecipe = [...this.state.savedRecipes];
     newRecipe.push(recipeId);
+    //Change this to get saved recipes from database
+    if (!this.state.savedRecipes.includes(recipeId)) {
+      this.fetchAddRecipe(recipeId);
+    }
     this.setState({ savedRecipes: newRecipe });
   };
 
   fetchRecipes = () => {
+    let str = "";
+    this.state.selectedIngredients.forEach(element => {
+      str += `,${element.name}`;
+    });
+    str = str.substring(1);
+    console.log(str);
+
     fetch(
-      //hard coded link, make it modular
-      "https://api.spoonacular.com/recipes/findByIngredients?ingredients=sugar,rice,water,salt,flour,&number=10&limitLicense=false&ranking=2&ignorePantry=false&apiKey=43d29fdc7015415fa6033d894c28c98c",
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${str}&number=10&limitLicense=false&ranking=2&ignorePantry=false&apiKey=43d29fdc7015415fa6033d894c28c98c`,
       {
         method: "GET"
       }
@@ -41,12 +51,31 @@ class App extends Component {
         return this.setState({ recipes: res });
       });
   };
+
+  fetchAddRecipe = recipeId => {
+    const id = recipeId;
+    fetch(
+      //hard coded link, make it modular
+      `http://localhost:8181/add/${id}`,
+      {
+        method: "PUT"
+      }
+    ) //Force break
+      .then(res => {
+        // console.log(res);
+        return res.json();
+      })
+      .then(res => {
+        return this.setState({ recipes: res });
+      });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>Hello, Let's Eat!</h1>
+        {/* ONLY FOR TESTING SHOULD NOT HAVE AN ONCLICK HERE */}
         <p onClick={this.fetchRecipes}>Select Your Ingredients</p>
-
         <AutocompleteContainer submitHandler={this.submitHandler} />
         <Card recipes={this.state.recipes} saveHandler={this.saveHandler} />
       </div>
