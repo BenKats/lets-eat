@@ -19,7 +19,7 @@ public class User {
 //    private List<Recipe> recipes;
 
     @ElementCollection
-    private List<String> recipes;
+    private List<Integer> recipes;
 
     public User() {
     }
@@ -48,20 +48,20 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getRecipes() {
+    public List<Integer> getRecipes() {
         return recipes;
     }
 
-    public void setRecipes(List<String> recipes) {
+    public void setRecipes(List<Integer> recipes) {
         this.recipes = recipes;
     }
 
-    public void addRecipeToUser(String recipe){
+    public void addRecipeToUser(Integer recipe){
         this.recipes.add(recipe);
     }
 
-    public void removeRecipeFromUser(String recipe){
-        this.recipes.removeIf((String r) -> r.equals(recipe));
+    public void removeRecipeFromUser(Integer recipe){
+        this.recipes.removeIf((Integer r) -> r.equals(recipe));
     }
 
     //    public List<Recipe> getRecipes() {
