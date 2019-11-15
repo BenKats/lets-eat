@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @PutMapping("/add/{rid}")
-    public ResponseEntity<User> addRecipe(@PathVariable String rid ){
+    public ResponseEntity<User> addRecipe(@PathVariable Integer rid ){
         return ResponseEntity.ok(userService.addRecipe(rid));
     }
 
     @DeleteMapping("/remove/{rid}")
-    public ResponseEntity<User> removeRecipe(@PathVariable String rid ){
+    public ResponseEntity<User> removeRecipe(@PathVariable Integer rid ){
         return ResponseEntity.ok(userService.removeRecipe(rid));
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/recipes")
-    public List<String> getRecipes(){return userService.getRecipes();}
+    public List<Integer> getRecipes(){return userService.getRecipes();}
 
     @GetMapping("/user")
     public ResponseEntity<User> getUser(){return ResponseEntity.ok(userService.getUser());}

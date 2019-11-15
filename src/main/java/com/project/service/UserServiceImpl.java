@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addRecipe(String rid) {
+    public User addRecipe(Integer rid) {
         Authentication auth = authenticationImpl.getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         user.addRecipeToUser(rid);
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User removeRecipe(String rid) {
+    public User removeRecipe(Integer rid) {
         Authentication auth = authenticationImpl.getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         user.removeRecipeFromUser(rid);
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> getRecipes() {
+    public List<Integer> getRecipes() {
         Authentication auth = authenticationImpl.getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         //user.getRecipe is a call to the getter inside the User Entity

@@ -17,11 +17,11 @@ public interface UserService  extends UserDetailsService {
 
     public List<User> listUsers();
 
-    User addRecipe(String rid);
+    User addRecipe(Integer rid);
 
-    User removeRecipe(String rid);
+    User removeRecipe(Integer rid);
 
-    List<String> getRecipes();
+    List<Integer> getRecipes();
 
     User getUser();
 }
