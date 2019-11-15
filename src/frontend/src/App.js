@@ -3,7 +3,7 @@ import "./App.css";
 
 import AutocompleteContainer from "./components/Autocomplete/AutocompleteContainer";
 import Card from "./components/RecipeCards/Card";
-import tempRecipes from "./assets/tempGetRecipes.json";
+
 class App extends Component {
   state = {
     selectedIngredients: [],
@@ -42,7 +42,7 @@ class App extends Component {
       {
         method: "GET"
       }
-    ) //Force break
+    )
       .then(res => {
         // console.log(res);
         return res.json();
@@ -54,13 +54,9 @@ class App extends Component {
 
   fetchAddRecipe = recipeId => {
     const id = recipeId;
-    fetch(
-      //hard coded link, make it modular
-      `http://localhost:8181/add/${id}`,
-      {
-        method: "PUT"
-      }
-    ) //Force break
+    fetch(`http://localhost:8181/add/${id}`, {
+      method: "PUT"
+    }) //Force break
       .then(res => {
         // console.log(res);
         return res.json();
