@@ -1,0 +1,12 @@
+/app/src/main/java/com/project/repository/UserRepository.java
+/app/src/main/java/com/project/config/SecurityConfig.java
+/app/src/main/java/com/project/service/UserService.java
+/app/src/main/java/com/project/config/AuthenticationFacade.java
+/app/src/main/java/com/project/ProjectApplication.java
+/app/src/main/java/com/project/config/AuthenticationImpl.java
+/app/src/main/java/com/project/config/JwtRequestFilter.java
+/app/src/main/java/com/project/service/UserServiceImpl.java
+/app/src/main/java/com/project/config/JwtUtil.java
+/app/src/main/java/com/project/config/JwtResponse.java
+/app/src/main/java/com/project/model/User.java
+/app/src/main/java/com/project/controller/UserController.java
