@@ -7,6 +7,7 @@ import EntryContainer from "./components/UserEntry/EntryContainer";
 
 class App extends Component {
   state = {
+    activeUser: false,
     selectedIngredients: [],
     recipes: [],
     //consider making saved recipes a n array of objects {name: pie, id: 777}
@@ -62,23 +63,6 @@ class App extends Component {
   };
 
   myRecipeViewHandler = () => {
-    // console.log("myRecipeViewHandler called");
-    // if (this.state.viewMyRecipes === false && this.state.token != null) {
-    //   console.log("my recipe view handler first if");
-    //   if (
-    //     this.state.savedRecipes === null ||
-    //     this.state.savedRecipes.length === 0
-    //   ) {
-    //     console.log("my recipe view handler second if");
-    //     alert("You have no recipes :(");
-    //   } else {
-    //     console.log("IN ELSE");
-    //     this.setState({
-    //       recipes: this.state.savedRecipes,
-    //       viewMyRecipes: true
-    //     });
-    //   }
-    // }
     if (!this.state.viewMyRecipes && this.state.token != null) {
       this.setState({ recipes: [], viewMyRecipes: true });
       this.fetchUserRecipes();
@@ -87,6 +71,10 @@ class App extends Component {
         this.fetchRecipeInformation(id);
       });
     }
+  };
+
+  toggleEntryHandler = () => {
+    this.setState({ activeUser: !this.state.activeUser });
   };
 
   fetchRecipes = () => {
@@ -201,11 +189,9 @@ class App extends Component {
         this.setState({ myRecipes: newMyRecipe });
       });
   };
-
-  render() {
+  renderAfterlogin() {
     return (
-      <div className="App">
-        <EntryContainer tokenHandler={this.tokenHandler} />
+      <div>
         <h1>Hello, Let's Eat!</h1>
         {/* ONLY FOR TESTING SHOULD NOT HAVE AN ONCLICK HERE */}
         <p onClick={this.fetchRecipes}>Select Your Ingredients</p>
@@ -233,13 +219,18 @@ class App extends Component {
                 />
               );
             })}
-        {/* <Card
-          recipes={this.state.recipes}
-          myRecipes={this.state.myRecipes}
-          viewMyRecipes={this.state.viewMyRecipes}
-          saveHandler={this.saveHandler}
-          deleteHandler={() => this.deleteHandler()}
-        /> */}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <EntryContainer
+          toggleEntryHandler={this.toggleEntryHandler}
+          tokenHandler={this.tokenHandler}
+        />
+        {this.state.token ? this.renderAfterlogin() : null}
       </div>
     );
   }

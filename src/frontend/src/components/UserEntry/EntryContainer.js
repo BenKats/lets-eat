@@ -21,7 +21,6 @@ class EntryContainer extends Component {
   signupHandler = () => {
     console.log("signupHandler Called");
     this.fetchSignup();
-    this.props.tokenHandler(this.state.token);
   };
 
   loginHandler = () => {
@@ -45,7 +44,9 @@ class EntryContainer extends Component {
       .then(res => {
         console.log(res);
         window.sessionStorage.setItem("token", res.token);
-        this.setState({ token: res.token });
+        this.setState({ token: res.token }, () => {
+          this.props.tokenHandler(this.state.token);
+        });
       })
       .catch(err => {
         console.error(err);
@@ -105,8 +106,7 @@ class EntryContainer extends Component {
         this.props.tokenHandler(this.state.token, this.state.savedRecipes);
       });
   };
-
-  render() {
+  renderIfNoToken() {
     return (
       <div>
         <Entry
@@ -115,6 +115,23 @@ class EntryContainer extends Component {
           signupHandler={this.signupHandler}
           loginHandler={this.loginHandler}
         />
+      </div>
+    );
+  }
+  render() {
+    return (
+      <div>
+        {!this.state.token ? (
+          this.renderIfNoToken()
+        ) : (
+          <button
+            onClick={() => {
+              this.props.tokenHandler("");
+              this.setState({ token: "" });
+            }}>
+            Log Out
+          </button>
+        )}
       </div>
     );
   }
