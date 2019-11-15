@@ -14,7 +14,7 @@ const Card = props => {
     <div>
       {props.viewMyRecipes === false ? (
         <div style={cardStyle} key={props.index}>
-          <h2>{this.props.recipe.title}</h2>
+          <h2>{props.recipe.title}</h2>
           <img src={props.recipe.image} alt="Recipe Picture" />
           <p>
             Ingredients Used <span>{props.recipe.usedIngredientCount}</span>
