@@ -10,7 +10,8 @@ class App extends Component {
     selectedIngredients: [],
     recipes: [],
     //consider making saved recipes a n array of objects {name: pie, id: 777}
-    savedRecipes: []
+    savedRecipes: [],
+    token: ""
   };
 
   submitHandler = ingredients => {
@@ -28,6 +29,10 @@ class App extends Component {
       this.fetchAddRecipe(recipeId);
     }
     this.setState({ savedRecipes: newRecipe });
+  };
+
+  tokenHandler = newToken => {
+    this.setState({ token: newToken });
   };
 
   fetchRecipes = () => {
@@ -56,21 +61,25 @@ class App extends Component {
   fetchAddRecipe = recipeId => {
     const id = recipeId;
     fetch(`http://localhost:8181/add/${id}`, {
-      method: "PUT"
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+        // Authorization: "Bearer " + token
+      }
     }) //Force break
       .then(res => {
-        // console.log(res);
+        console.log(res);
         return res.json();
-      })
-      .then(res => {
-        return this.setState({ recipes: res });
       });
+    // .then(res => {
+    //   return this.setState({ recipes: res });
+    // });
   };
 
   render() {
     return (
       <div className="App">
-        <EntryContainer></EntryContainer>
+        <EntryContainer tokenHandler={this.tokenHandler} />
         <h1>Hello, Let's Eat!</h1>
         {/* ONLY FOR TESTING SHOULD NOT HAVE AN ONCLICK HERE */}
         <p onClick={this.fetchRecipes}>Select Your Ingredients</p>

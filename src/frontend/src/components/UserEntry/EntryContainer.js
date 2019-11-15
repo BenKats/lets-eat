@@ -19,11 +19,13 @@ class EntryContainer extends Component {
   signupHandler = () => {
     console.log("signupHandler Called");
     this.fetchSignup();
+    this.props.tokenHandler(window.sessionStorage.getItem("token"));
   };
 
   loginHandler = () => {
     console.log("loginHandler Called");
     this.fetchLogin();
+    this.props.tokenHandler(window.sessionStorage.getItem("token"));
   };
 
   fetchSignup = () => {
