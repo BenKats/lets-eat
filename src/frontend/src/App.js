@@ -3,6 +3,7 @@ import "./App.css";
 
 import AutocompleteContainer from "./components/Autocomplete/AutocompleteContainer";
 import Card from "./components/RecipeCards/Card";
+import EntryContainer from "./components/UserEntry/EntryContainer";
 
 class App extends Component {
   state = {
@@ -69,9 +70,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <EntryContainer></EntryContainer>
         <h1>Hello, Let's Eat!</h1>
         {/* ONLY FOR TESTING SHOULD NOT HAVE AN ONCLICK HERE */}
         <p onClick={this.fetchRecipes}>Select Your Ingredients</p>
+
         <AutocompleteContainer submitHandler={this.submitHandler} />
         <Card recipes={this.state.recipes} saveHandler={this.saveHandler} />
       </div>
