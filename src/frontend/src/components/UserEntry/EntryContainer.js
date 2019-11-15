@@ -73,7 +73,14 @@ class EntryContainer extends Component {
         return res.token;
       })
       .then(token => {
-        this.fetchUserRecipes(token);
+        if (token !== null) {
+          this.fetchUserRecipes(token);
+        } else {
+          alert("User Not Found");
+        }
+      })
+      .catch(error => {
+        console.error(error);
       });
   };
 
