@@ -27,12 +27,12 @@ class App extends Component {
     //Change this to get saved recipes from database
     if (!this.state.savedRecipes.includes(recipeId)) {
       this.fetchAddRecipe(recipeId);
+      this.setState({ savedRecipes: newRecipe });
     }
-    this.setState({ savedRecipes: newRecipe });
   };
 
-  tokenHandler = newToken => {
-    this.setState({ token: newToken });
+  tokenHandler = (newToken, userRecipes) => {
+    this.setState({ token: newToken, savedRecipes: userRecipes });
   };
 
   fetchRecipes = () => {
@@ -63,17 +63,17 @@ class App extends Component {
     fetch(`http://localhost:8181/add/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
-        // Authorization: "Bearer " + token
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.state.token
       }
     }) //Force break
       .then(res => {
         console.log(res);
         return res.json();
+      })
+      .catch(error => {
+        console.error(error);
       });
-    // .then(res => {
-    //   return this.setState({ recipes: res });
-    // });
   };
 
   render() {

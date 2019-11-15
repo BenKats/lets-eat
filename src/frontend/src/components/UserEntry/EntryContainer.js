@@ -4,7 +4,9 @@ import Entry from "./Entry";
 class EntryContainer extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    savedRecipes: [],
+    token: ""
   };
   emailChangeHandler = event => {
     console.log(event.target.value);
@@ -19,13 +21,12 @@ class EntryContainer extends Component {
   signupHandler = () => {
     console.log("signupHandler Called");
     this.fetchSignup();
-    this.props.tokenHandler(window.sessionStorage.getItem("token"));
+    this.props.tokenHandler(this.state.token);
   };
 
   loginHandler = () => {
     console.log("loginHandler Called");
     this.fetchLogin();
-    this.props.tokenHandler(window.sessionStorage.getItem("token"));
   };
 
   fetchSignup = () => {
@@ -44,12 +45,14 @@ class EntryContainer extends Component {
       .then(res => {
         console.log(res);
         window.sessionStorage.setItem("token", res.token);
+        this.setState({ token: res.token });
       })
       .catch(err => {
         console.error(err);
       });
   };
 
+  //Login: Gets token, gets saved user recipes by token, returns token and saved recipes to App.js
   fetchLogin = () => {
     fetch(`http://localhost:8181/login`, {
       method: "POST",
@@ -66,8 +69,36 @@ class EntryContainer extends Component {
       .then(res => {
         console.log(res);
         window.sessionStorage.setItem("token", res.token);
+        this.setState({ token: res.token });
+        return res.token;
+      })
+      .then(token => {
+        this.fetchUserRecipes(token);
       });
   };
+
+  fetchUserRecipes = token => {
+    fetch(`http://localhost:8181/recipes`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
+      }
+    })
+      .then(res => {
+        // console.log(res);
+        return res.json();
+      })
+      .then(res => {
+        console.log("Fetched User Recipes", res);
+        this.setState({ savedRecipes: res });
+        return res;
+      })
+      .then(callback => {
+        this.props.tokenHandler(this.state.token, this.state.savedRecipes);
+      });
+  };
+
   render() {
     return (
       <div>
