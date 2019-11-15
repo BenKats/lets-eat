@@ -28,11 +28,14 @@ class App extends Component {
     if (!this.state.savedRecipes.includes(recipeId)) {
       this.fetchAddRecipe(recipeId);
       this.setState({ savedRecipes: newRecipe });
+    } else {
+      alert("This recipe is already saved");
     }
   };
 
   tokenHandler = (newToken, userRecipes) => {
-    this.setState({ token: newToken, savedRecipes: userRecipes });
+    //...new Set removes duplicate values if they exist
+    this.setState({ token: newToken, savedRecipes: [...new Set(userRecipes)] });
   };
 
   fetchRecipes = () => {
