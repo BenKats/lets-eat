@@ -44,12 +44,16 @@ class App extends Component {
     console.log("Delete Handler Called", index);
     const myNewRecipes = [...this.state.myRecipes];
     console.log(`ingredients presplice is ${myNewRecipes}`);
+    console.log(myNewRecipes);
+    const id = myNewRecipes[index].id;
+    console.log("ID IS", id);
     myNewRecipes.splice(index, 1);
+
     console.log(`ingredients postsplice is ${myNewRecipes}`);
     this.setState({
       myRecipes: myNewRecipes
     });
-    // this.fetchDeleteRecipe();
+    this.fetchDeleteRecipe(id);
   };
 
   tokenHandler = (newToken, userRecipes) => {
@@ -128,7 +132,7 @@ class App extends Component {
 
   fetchDeleteRecipe = recipeId => {
     const id = recipeId;
-    fetch(`http://localhost:8181/delete/${id}`, {
+    fetch(`http://localhost:8181/remove/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
