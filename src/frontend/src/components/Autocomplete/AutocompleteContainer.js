@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import allIngredients from "../assets/ingredients.json";
+import allIngredients from "../../assets/ingredients.json";
 import AutocompleteInput from "./AutocompleteInput";
 import Card from "./Card";
 import SuggestionItem from "./SuggestionItem";
@@ -65,12 +65,14 @@ class AutocompleteContainer extends Component {
     this.setState({ text: event.target.value.toLowerCase() });
   };
 
-  //   submitHandlerHelper = e => {
-  //       //if I want to refactor without an anon function, to potentially make the code look cleaner
-  //     e.preventDefault();
-  //     console.log(this.state.selectedIngredients);
-  //     this.props.submitHandler(this.state.selectedIngredients);
-  //   };
+  submitHandlerHelper = e => {
+    //if I want to refactor without an anon function, to potentially make the code look cleaner I can comment this function out and replace the onclick submitHandlerHelper with  onClick={() => this.props.submitHandler(this.state.selectedIngredients)
+    e.preventDefault();
+    console.log(this.state.selectedIngredients);
+    //clears text state to remove suggestions
+    this.setState({ text: "" });
+    this.props.submitHandler(this.state.selectedIngredients);
+  };
 
   render() {
     return (
@@ -89,13 +91,7 @@ class AutocompleteContainer extends Component {
           addCardHandler={this.addCardHandler}
           changeHandler={this.changeHandler}
         />
-        <button
-          onClick={() =>
-            this.props.submitHandler(this.state.selectedIngredients)
-          }
-        >
-          Submit
-        </button>
+        <button onClick={this.submitHandlerHelper}>Submit</button>
         <p>{this.state.text}</p>
         <SuggestionItem
           text={this.state.text}
