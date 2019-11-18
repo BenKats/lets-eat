@@ -26,12 +26,11 @@ class App extends Component {
     });
   };
 
-  //This function needs to make a call to the database to save the id to the user
+  //This function makes a call to the database to save the id to the user
   saveHandler = recipeId => {
     console.log("saveHandler Called", recipeId);
     const newRecipe = [...this.state.savedRecipes];
     newRecipe.push(recipeId);
-    //Change this to get saved recipes from database
     if (!this.state.savedRecipes.includes(recipeId)) {
       this.fetchAddRecipe(recipeId);
       this.setState({ savedRecipes: newRecipe });
@@ -57,6 +56,7 @@ class App extends Component {
     this.fetchDeleteRecipe(id);
   };
 
+  //callback function to retrieve token and saved user recipes from database
   tokenHandler = (newToken, userRecipes) => {
     //...new Set removes duplicate values if they exist
     this.setState({ token: newToken, savedRecipes: [...new Set(userRecipes)] });
@@ -102,13 +102,16 @@ class App extends Component {
 
   fetchAddRecipe = recipeId => {
     const id = recipeId;
-    fetch(`http://localhost:8081/add/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.state.token
+    fetch(
+      `http://ec2-3-135-17-202.us-east-2.compute.amazonaws.com:8081/add/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.token
+        }
       }
-    }) //Force break
+    ) //Force break
       .then(res => {
         console.log(res);
         return res.json();
@@ -120,13 +123,16 @@ class App extends Component {
 
   fetchDeleteRecipe = recipeId => {
     const id = recipeId;
-    fetch(`http://localhost:8081/remove/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.state.token
+    fetch(
+      `http://ec2-3-135-17-202.us-east-2.compute.amazonaws.com:8081/remove/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.token
+        }
       }
-    })
+    )
       .then(res => {
         console.log(res);
         return res.json();
@@ -140,13 +146,16 @@ class App extends Component {
   };
 
   fetchUserRecipes = () => {
-    fetch(`http://localhost:8081/recipes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.state.token
+    fetch(
+      `http://ec2-3-135-17-202.us-east-2.compute.amazonaws.com:8081/recipes`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.token
+        }
       }
-    })
+    )
       .then(res => {
         // console.log(res);
         return res.json();
@@ -189,6 +198,8 @@ class App extends Component {
         this.setState({ myRecipes: newMyRecipe });
       });
   };
+
+  //rendering trick to avoid using browser router
   renderAfterlogin() {
     return (
       <div>

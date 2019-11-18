@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+//Stateful component that regulates signup/login and returns user info to app.js
 import Entry from "./Entry";
 class EntryContainer extends Component {
   state = {
@@ -29,14 +30,17 @@ class EntryContainer extends Component {
   };
 
   fetchSignup = () => {
-    fetch(`http://localhost:8081/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: this.state.email,
-        password: this.state.password
-      })
-    })
+    fetch(
+      `http://http://ec2-3-135-17-202.us-east-2.compute.amazonaws.com:8081/signup`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: this.state.email,
+          password: this.state.password
+        })
+      }
+    )
       .then(res => {
         // console.log(res);
         return res.json();
@@ -55,14 +59,17 @@ class EntryContainer extends Component {
 
   //Login: Gets token, gets saved user recipes by token, returns token and saved recipes to App.js
   fetchLogin = () => {
-    fetch(`http://localhost:8181/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: this.state.email,
-        password: this.state.password
-      })
-    })
+    fetch(
+      `http://ec2-3-135-17-202.us-east-2.compute.amazonaws.com:8081/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: this.state.email,
+          password: this.state.password
+        })
+      }
+    )
       .then(res => {
         // console.log(res);
         return res.json();
@@ -86,13 +93,16 @@ class EntryContainer extends Component {
   };
 
   fetchUserRecipes = token => {
-    fetch(`http://localhost:8181/recipes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
+    fetch(
+      `http://ec2-3-135-17-202.us-east-2.compute.amazonaws.com:8081/recipes`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        }
       }
-    })
+    )
       .then(res => {
         // console.log(res);
         return res.json();

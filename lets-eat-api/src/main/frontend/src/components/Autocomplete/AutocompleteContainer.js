@@ -36,7 +36,7 @@ class AutocompleteContainer extends Component {
       const validated = this.validateIngredient(ingredient);
       if (validated === -1) {
         alert(
-          "Ingredient Not Found:\nThats a unique ingredient you got there\n Please check that spelling was correct."
+          "Ingredient Not Found:\nThats a neat ingredient you got there\n Please check that spelling was correct or check the suggestions below."
         );
       } else {
         newIngredient.push(validated);
