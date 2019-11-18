@@ -7,7 +7,7 @@ const Card = props => {
     padding: "0px 5px",
     border: "2px solid black"
   };
-  console.log("hiiiiiiiii");
+  // console.log("hiiiiiiiii");
   console.log(props.recipes);
 
   return (
@@ -30,7 +30,8 @@ const Card = props => {
           {props.recipe.missedIngredients.map((ingredient, index) => {
             return <li key={index}>{ingredient.name}</li>;
           })}
-          <button>Info</button>
+          {/* Too costly/ too many api calls to implement recipe instructions, current limit is 150/month */}
+          {/* <button>Info</button> */}
           <button onClick={() => props.saveHandler(props.recipe.id)}>
             Save
           </button>
