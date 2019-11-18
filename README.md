@@ -6,13 +6,13 @@ Fullstack application deployed on AWS built with React.js and Spring Boot follow
 Let's Eat allows you to find recipes based on the ingredients you have readily available to you in your kitchen.
 
 ## Technologies Used
-[React.js](https://reactjs.org/) - Javascript library used for the frontend
-[Spring](https://spring.io/projects/spring-boot)  - Java backend for my own REST API
-[Postgres](https://www.postgresql.org/) - SQL database for storing user info
-[Docker](https://www.docker.com/) - Tool for containerizing and transofrming the application into a microservice
-[AWS EC2](https://aws.amazon.com/ec2/) - Amazon Web Services is hosting the application
-[Maven](https://maven.apache.org/) - Dependency manager
-[Spoonacular API](https://spoonacular.com/food-api) - External API which allowed for recipe fetching
+- [React.js](https://reactjs.org/) - Javascript library used for the frontend
+- [Spring](https://spring.io/projects/spring-boot)  - Java backend for my own REST API
+- [Postgres](https://www.postgresql.org/) - SQL database for storing user info
+- [Docker](https://www.docker.com/) - Tool for containerizing and transofrming the application into a microservice
+- [AWS EC2](https://aws.amazon.com/ec2/) - Amazon Web Services is hosting the application
+- [Maven](https://maven.apache.org/) - Dependency manager
+- [Spoonacular API](https://spoonacular.com/food-api) - External API which allowed for recipe fetching
 
 ## How To Use
 On the site itself after selecting ingredients and pressing the submit button you must press on the words "Select Your Ingredients" text to generate the results. This is a deliberate precaution to not accidentally make extra API calls, and to ensure that only those who have read this repo would know how to use the app.
